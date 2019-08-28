@@ -1,0 +1,14 @@
+# Author:Sun Yan
+# Function: convert html to md
+# -*- coding: utf-8 -*-
+
+import html2text as ht  # pip install html2text
+text_maker = ht.HTML2Text()
+# text_maker.ignore_links = True
+text_maker.bypass_tables = False
+path = r"C:\Users\admin\Desktop\01.html"
+htmlfile = open(path, 'r', encoding='GBK')
+htmlpage = htmlfile.read()
+text = text_maker.handle(htmlpage)
+md = text.split('#')  # split post content
+open("1.md", "w").write(md[0])  # write file as a md file
