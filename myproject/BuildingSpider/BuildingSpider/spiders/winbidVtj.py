@@ -23,7 +23,7 @@ class WinBidSpider(scrapy.spiders.Spider):
     #     'ITEM_PIPELINES': {'BuildingSpider.pipelines.winbidVtjPipeline': 350}
     # }
 
-    end_page =5#设置爬取页码数
+    end_page =2#设置爬取页码数
     for count in range(1, end_page):
         link = 'http://www.tjconstruct.cn/Zbgs/Index/'+str(count)+'?type = sgzb'
         start_urls.append(link)

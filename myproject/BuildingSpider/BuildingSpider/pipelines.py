@@ -44,51 +44,35 @@ class BuildingSpiderPipeline(object):
             asynItem = copy.deepcopy(item)
             query = self.db_pool.runInteraction(self.insert_into_callbidsql, asynItem)
             # 如果sql执行发送错误,自动回调addErrBack()函数
-            query.addErrback(self.callbid_handle_error, item, spider)
+            query.addErrback(self.handle_error, item, spider)
             # 返回Item
             return item
+
         elif isinstance(item,WinBidItem):
             # 把要执行的sql放入连接池
             asynItem = copy.deepcopy(item)
             query = self.db_pool.runInteraction(self.insert_into_winbidsql, asynItem)
             # 如果sql执行发送错误,自动回调addErrBack()函数
-            query.addErrback(self.windbid_handle_error, item, spider)
+            query.addErrback(self.handle_error, item, spider)
             # 返回Item
             return item
 
     def insert_into_callbidsql(self, cursor, item):
-        sql = '''INSERT INTO callbidsql (name,district,type,purl,tenderee,tenderer,address,docnmb,
-                      startaffich,endaffich,startRegistration,endRegistration,bloomnb,md,content,dom,crawltime) VALUES
-                      (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            '''
-        # 执行sql语句
-        cursor.execute(sql, (item['name'], item['district'], item['type'], item['purl'], \
-                             item['tenderee'], item['tenderer'], item['address'], item['docnmb'], \
-                            item['startaffich'], item['endaffich'], item['startRegistration'], \
-                            item['endRegistration'], item['bloomnb'], item['md'], item['content'], \
-                             item['dom'], item['crawltime'] ))
 
-    def callbid_handle_error(self, failure, item, spider):
-        # #输出错误信息
-        print(failure)
-        print('爬虫bug结束')
-        os._exit(0)
+        sql = 'INSERT INTO callbidsql (' + ','.join(item.keys()) + ') VALUES (' + ','.join(['%s'] * len(item)) + ')'
+        # 执行sql语句
+        cursor.execute(sql, tuple(item.values()))
 
     def insert_into_winbidsql(self, cursor, item):
-        sql = '''INSERT INTO winbidsql (name, district, type, dom, purl, publisher, address, docnmb, winner,
-                         startaffich, endaffich, bloomnb, md, content,crawltime) VALUES
-                         (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-               '''
+
+        sql = 'INSERT INTO winbidsql (' + ','.join(item.keys()) + ') VALUES (' + ','.join(['%s'] * len(item)) + ')'
         # 执行sql语句
-        cursor.execute(sql, (item['name'], item['district'], item['type'], item['dom'], \
-                             item['purl'], item['publisher'], item['address'], item['docnmb'], \
-                             item['winner'], item['startaffich'], item['endaffich'], item['bloomnb'], \
-                             item['md'], item['content'], item['crawltime']))
+        cursor.execute(sql, tuple(item.values()))
 
-
-    def windbid_handle_error(self, failure, item, spider):
+    def handle_error(self, failure, item, spider):
         # #输出错误信息
         print(failure)
         print('爬虫bug结束')
         os._exit(0)
+
 
