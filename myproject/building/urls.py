@@ -13,6 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
+import os
+os.path.dirname(os.path.dirname(os.path.abspath('.')))
 from django.conf.urls import url, include
 from django.contrib import admin
 from BuildingPlat import views

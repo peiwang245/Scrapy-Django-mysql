@@ -10,8 +10,8 @@ import hashlib
 import html2text as ht  # pip install html2text
 import requests
 
-global g_district, g_type
-g_district = '天津'
+global g_province, g_type
+g_province = '天津'
 
 
 class WinBidSpider(scrapy.spiders.Spider):
@@ -59,7 +59,7 @@ class WinBidSpider(scrapy.spiders.Spider):
                 md = text.split('#')  # split post content
 
                 item['name']= nname
-                item['district'] = g_district
+                item['province'] = g_province
                 item['dom'] = self.allow_domains[0]
 
                 item['purl'] = npurl
@@ -71,7 +71,7 @@ class WinBidSpider(scrapy.spiders.Spider):
                 item['type'] = '--'
 
                 item['winner'] = '--'
-                item['address'] = '--'
+                item['district'] = '--'
                 item['bloomnb'] = bloomnmb
 
                 item['md'] = ''.join(md)

@@ -5,4 +5,8 @@ import sys
 if __name__ == '__main__':
     sys.path.append(os.path.dirname(os.path.abspath(__file__)))
     #招标信息
-    execute(['scrapy','crawlall'])
+    # execute(['scrapy','crawlall'])
+    execute(['scrapy', 'crawl','callbidVjx'])
+    # execute(['scrapy', 'crawl', 'winbidVjx'])
+    # execute(['scrapy', 'crawl', 'callbidVah'])
+    # execute(['scrapy', 'crawl', 'callbidVsc'])

@@ -58,13 +58,11 @@ class BuildingSpiderPipeline(object):
             return item
 
     def insert_into_callbidsql(self, cursor, item):
-
         sql = 'INSERT INTO callbidsql (' + ','.join(item.keys()) + ') VALUES (' + ','.join(['%s'] * len(item)) + ')'
         # 执行sql语句
         cursor.execute(sql, tuple(item.values()))
 
     def insert_into_winbidsql(self, cursor, item):
-
         sql = 'INSERT INTO winbidsql (' + ','.join(item.keys()) + ') VALUES (' + ','.join(['%s'] * len(item)) + ')'
         # 执行sql语句
         cursor.execute(sql, tuple(item.values()))

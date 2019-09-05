@@ -11,8 +11,8 @@ import html2text as ht  # pip install html2text
 import requests
 
 
-global g_district, g_type
-g_district = '天津'
+global g_province, g_type
+g_province = '天津'
 
 class callBidSpider(scrapy.spiders.Spider):
     name = "callbidVtj"
@@ -60,22 +60,28 @@ class callBidSpider(scrapy.spiders.Spider):
 
 
                 item['name']= nname
-                item['district'] = g_district
+                item['province'] = g_province
                 item['dom'] = self.allow_domains[0]
+
                 item['purl'] = npurl
                 item['docnmb'] = ndocnmb
                 item['startaffich'] = ndate
+
                 item['endaffich'] = None
                 item['startRegistration'] = None
                 item['endRegistration'] = None
+
                 item['type'] = '--'
                 item['tenderee'] = ntenderee
                 item['tenderer'] = '--'
-                item['address'] = '--'
+
+                item['district'] = '--'
                 item['bloomnb'] = bloomnmb
                 item['md'] = ''.join(md)
+
                 item['content'] = htmlpage
                 item['crawltime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
                 yield item
             except:
                 pass

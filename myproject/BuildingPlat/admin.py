@@ -12,12 +12,12 @@ class CallBidAdmin(admin.ModelAdmin):
         return qs.filter(author=request.user)
 
     # listdisplay设置要显示在列表中的字段（id字段是Django模型的默认主键）
-    list_display = ('name', 'district', 'type', 'purl', 'tenderee','tenderer',\
-                    'address', 'docnmb', 'startaffich','endaffich','endRegistration')
+    list_display = ('name', 'province', 'type', 'purl', 'tenderee',\
+                    'district',  'startaffich','endaffich','endRegistration')
 
     # 筛选器
-    list_filter = ('district', 'dom')
-    search_fields = ('name', 'district', )  # 搜索字段
+    list_filter = ('province', 'type')
+    search_fields = ('name', 'province', )  # 搜索字段
     #list_per_page设置每页显示多少条记录，默认是100条
     list_per_page = 25
     # 设置哪些字段可以点击进入编辑界面
@@ -37,11 +37,11 @@ class WinBidAdmin(admin.ModelAdmin):
         return qs.filter(author=request.user)
 
     # listdisplay设置要显示在列表中的字段（id字段是Django模型的默认主键）
-    list_display = ('name', 'district', 'type', 'purl','winner',\
-                    'address', 'docnmb', 'startaffich','endaffich')
+    list_display = ('name', 'province', 'type', 'purl', 'winner', \
+                    'district', 'startaffich', 'endaffich')
 
     # 筛选器
-    list_filter = ('district', 'dom')
+    list_filter = ('province', 'type')
     search_fields = ('name', 'district', )  # 搜索字段
     #list_per_page设置每页显示多少条记录，默认是100条
     list_per_page = 25
